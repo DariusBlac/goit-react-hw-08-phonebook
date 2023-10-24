@@ -1,4 +1,6 @@
 import Navigation from 'components/Navigation/Navigation';
+import PrivateRoute from 'guards/PrivateRoute/PrivateRoute';
+import PublicRoute from 'guards/PublicRoute/PublicRoute';
 import { Contacts } from 'pages/Contacts/Contacts';
 import { Home } from 'pages/Home/Home';
 import SignIn from 'pages/Login/Login';
@@ -10,9 +12,30 @@ export const App = () => {
     <Routes>
       <Route path="/" element={<Navigation />}>
         <Route index element={<Home />} />
-        <Route path="contacts" element={<Contacts />} />
-        <Route path="register" element={<SignUp />} />
-        <Route path="login" element={<SignIn />} />
+        <Route
+          path="contacts"
+          element={
+            <PrivateRoute>
+              <Contacts />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="register"
+          element={
+            <PublicRoute>
+              <SignUp />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="login"
+          element={
+            <PublicRoute>
+              <SignIn />
+            </PublicRoute>
+          }
+        />
         <Route path="*" element={<Home />} />
       </Route>
     </Routes>

@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import css from './Form.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { createContactThunk } from 'store/contacts/thunk';
+import { createContactThunk, getAllThunk } from 'store/contacts/thunk';
+import { contactsSelector } from 'store/contacts/selectors';
 
 export const FormCreateContact = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const { contacts } = useSelector(store => store.contacts);
+  const contacts = useSelector(contactsSelector);
   const dispatch = useDispatch();
 
   const createContact = body => {
@@ -15,7 +16,14 @@ export const FormCreateContact = () => {
     );
     if (isAlreadyExist)
       return alert(`${isAlreadyExist.name} is already in contacts`);
-    dispatch(createContactThunk(body));
+    dispatch(createContactThunk(body))
+      .unwrap()
+      .then(() => {
+        dispatch(getAllThunk());
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   const handleChange = ({ target: { value, name } }) => {
@@ -25,7 +33,7 @@ export const FormCreateContact = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    createContact({ name, phone });
+    createContact({ name, number: phone });
     setName('');
     setPhone('');
   };

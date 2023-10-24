@@ -3,9 +3,10 @@ import { ContactList } from 'components/ContactList/ContactList';
 import { Filter } from 'components/Filter/Filter';
 import css from '../../components/App/App.module.css';
 import { useSelector } from 'react-redux';
+import { contactsErrorSelector } from 'store/contacts/selectors';
 
 export const Contacts = () => {
-  const { error } = useSelector(store => store.contacts.contacts);
+  const error = useSelector(contactsErrorSelector);
 
   return (
     <div className={css.container}>

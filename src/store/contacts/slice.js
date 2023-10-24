@@ -27,17 +27,12 @@ export const contactsSlice = createSlice({
         state.contacts.isLoading = false;
         state.contacts.items = payload;
       })
-      .addCase(createContactThunk.fulfilled, (state, { payload }) => {
+      .addCase(createContactThunk.fulfilled, state => {
         state.contacts.isLoading = false;
-        state.contacts.items.push(payload);
         Notiflix.Notify.success('Contact added');
       })
-      .addCase(deleteContactThunk.fulfilled, (state, { payload }) => {
+      .addCase(deleteContactThunk.fulfilled, state => {
         state.contacts.isLoading = false;
-        const deleteItemIndex = state.contacts.items.findIndex(
-          el => el.id === payload
-        );
-        state.contacts.items.splice(deleteItemIndex, 1);
         Notiflix.Notify.success('Contact delete');
       })
       .addMatcher(action => action.type.endsWith('/pending'), handlePending)

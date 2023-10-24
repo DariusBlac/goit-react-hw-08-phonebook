@@ -3,13 +3,25 @@ import css from './ContactList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContactThunk, getAllThunk } from 'store/contacts/thunk';
 import { useEffect } from 'react';
+import {
+  contactsFilterSelector,
+  contactsSelector,
+} from 'store/contacts/selectors';
 
 export const ContactList = () => {
-  const { contacts, filter } = useSelector(store => store.contacts);
+  const contacts = useSelector(contactsSelector);
+  const filter = useSelector(contactsFilterSelector);
   const dispatch = useDispatch();
 
   const handleDelete = id => {
-    dispatch(deleteContactThunk(id));
+    dispatch(deleteContactThunk(id))
+      .unwrap()
+      .then(() => {
+        dispatch(getAllThunk());
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   let filteredContacts = null;
@@ -28,7 +40,7 @@ export const ContactList = () => {
         <li key={el.id} className={css.list_item}>
           <ContactItem
             name={el.name}
-            number={el.phone}
+            number={el.number}
             onClickDelete={handleDelete}
             id={el.id}
           />

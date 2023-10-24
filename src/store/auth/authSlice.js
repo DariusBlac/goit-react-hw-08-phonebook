@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { registrationThunk } from './thunk';
+import { loginThunk, registrationThunk } from './thunk';
 
 const initialState = {
   token: '',
-  email: '',
+  profile: null,
 };
 
 const handleAuthFulfilled = (state, { payload }) => {
@@ -14,10 +14,18 @@ const handleAuthFulfilled = (state, { payload }) => {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    logOut: state => {
+      state.profile = null;
+      state.token = '';
+    },
+  },
   extraReducers: builder => {
-    builder.addCase(registrationThunk.fulfilled, handleAuthFulfilled);
+    builder
+      .addCase(registrationThunk.fulfilled, handleAuthFulfilled)
+      .addCase(loginThunk.fulfilled, handleAuthFulfilled);
   },
 });
 
 export const authReducer = authSlice.reducer;
+export const { logOut } = authSlice.actions;

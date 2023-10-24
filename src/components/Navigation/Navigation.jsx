@@ -5,8 +5,13 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Suspense } from 'react';
+import { useSelector } from 'react-redux';
+import { authSelector } from 'store/auth/selectors';
+import { AuthMenu } from './AuthMenu';
+import { UserMenu } from 'components/UserMenu/UserMenu';
 
 export default function Navigation() {
+  const isAuth = useSelector(authSelector);
   const navigate = useNavigate();
   return (
     <>
@@ -29,24 +34,8 @@ export default function Navigation() {
             >
               Contacts
             </Button>
-            <Box sx={{ marginLeft: 'auto' }}>
-              <Button
-                color="inherit"
-                onClick={() => {
-                  navigate('register');
-                }}
-              >
-                Register
-              </Button>
-              <Button
-                color="inherit"
-                onClick={() => {
-                  navigate('login');
-                }}
-              >
-                Login
-              </Button>
-            </Box>
+            {!isAuth && <AuthMenu />}
+            {isAuth && <UserMenu />}
           </Toolbar>
         </AppBar>
       </Box>
