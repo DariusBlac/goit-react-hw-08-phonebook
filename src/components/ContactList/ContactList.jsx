@@ -7,6 +7,7 @@ import {
   contactsFilterSelector,
   contactsSelector,
 } from 'store/contacts/selectors';
+import { Box } from '@mui/material';
 
 export const ContactList = () => {
   const contacts = useSelector(contactsSelector);
@@ -37,14 +38,19 @@ export const ContactList = () => {
   const createdListItems = array => {
     return array.map(el => {
       return (
-        <li key={el.id} className={css.list_item}>
+        <Box
+          key={el.id}
+          component="li"
+          fullWidth
+          sx={{ display: 'flex', width: '100%' }}
+        >
           <ContactItem
             name={el.name}
             number={el.number}
             onClickDelete={handleDelete}
             id={el.id}
           />
-        </li>
+        </Box>
       );
     });
   };

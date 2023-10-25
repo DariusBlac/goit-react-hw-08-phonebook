@@ -1,4 +1,5 @@
 import Navigation from 'components/Navigation/Navigation';
+import { NotFound } from 'components/NotFound/NotFound';
 import PrivateRoute from 'guards/PrivateRoute/PrivateRoute';
 import PublicRoute from 'guards/PublicRoute/PublicRoute';
 import { Contacts } from 'pages/Contacts/Contacts';
@@ -36,7 +37,7 @@ export const App = () => {
             </PublicRoute>
           }
         />
-        <Route path="*" element={<Home />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );

@@ -1,22 +1,29 @@
 import { FormCreateContact } from 'components/Forms/FormCreateContact';
 import { ContactList } from 'components/ContactList/ContactList';
 import { Filter } from 'components/Filter/Filter';
-import css from '../../components/App/App.module.css';
 import { useSelector } from 'react-redux';
 import { contactsErrorSelector } from 'store/contacts/selectors';
+import { Box, Typography } from '@mui/material';
+import Notiflix from 'notiflix';
 
 export const Contacts = () => {
   const error = useSelector(contactsErrorSelector);
 
   return (
-    <div className={css.container}>
-      <h1>Phone book</h1>
+    <Box
+      sx={{
+        margin: '20px auto 0px',
+        width: '600px',
+      }}
+    >
+      <Typography component="h2" variant="h3">
+        Create contact
+      </Typography>
       <FormCreateContact />
-      {error && <b>Something with wrong</b>}
-      <h2>Contacts</h2>
+      {error && Notiflix.Notify.failure('Something with wrong')}
       <Filter />
 
       <ContactList />
-    </div>
+    </Box>
   );
 };

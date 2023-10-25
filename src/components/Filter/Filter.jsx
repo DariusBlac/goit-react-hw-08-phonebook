@@ -1,5 +1,5 @@
+import { Box, TextField, Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import css from './Filter.module.css';
 import { filterContacts } from 'store/contacts/slice';
 
 export const Filter = () => {
@@ -11,9 +11,18 @@ export const Filter = () => {
   };
 
   return (
-    <div>
-      <h3 className={css.title}>Filter by Name</h3>
-      <input type="text" onChange={inputFilterValue} className={css.input} />
-    </div>
+    <Box>
+      <Typography component="h3" variant="h3">
+        Filter contacts by Name
+      </Typography>
+      <TextField
+        sx={{ mt: 3 }}
+        type="text"
+        onChange={inputFilterValue}
+        placeholder="Darius Black"
+        fullWidth
+        label="Name"
+      />
+    </Box>
   );
 };
