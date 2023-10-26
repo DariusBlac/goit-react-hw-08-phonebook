@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { initialState } from './initialState';
-import { createContactThunk, deleteContactThunk, getAllThunk } from './thunk';
+import {
+  createContactThunk,
+  deleteContactThunk,
+  editContactThunk,
+  getAllThunk,
+} from './thunk';
 import Notiflix from 'notiflix';
 
 const handlePending = state => {
@@ -11,6 +16,10 @@ const handlePending = state => {
 const handleRejected = (state, { error }) => {
   state.contacts.isLoading = false;
   state.contacts.error = error.message;
+};
+
+const handleFulfilled = state => {
+  state.contacts.isLoading = false;
 };
 
 export const contactsSlice = createSlice({
@@ -24,19 +33,23 @@ export const contactsSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(getAllThunk.fulfilled, (state, { payload }) => {
-        state.contacts.isLoading = false;
         state.contacts.items = payload;
       })
-      .addCase(createContactThunk.fulfilled, state => {
-        state.contacts.isLoading = false;
+      .addCase(createContactThunk.fulfilled, () => {
         Notiflix.Notify.success('Contact added');
       })
-      .addCase(deleteContactThunk.fulfilled, state => {
-        state.contacts.isLoading = false;
+      .addCase(editContactThunk.fulfilled, () => {
+        Notiflix.Notify.success('Contact edit');
+      })
+      .addCase(deleteContactThunk.fulfilled, () => {
         Notiflix.Notify.success('Contact delete');
       })
       .addMatcher(action => action.type.endsWith('/pending'), handlePending)
-      .addMatcher(action => action.type.endsWith('/rejected'), handleRejected);
+      .addMatcher(action => action.type.endsWith('/rejected'), handleRejected)
+      .addMatcher(
+        action => action.type.endsWith('/fulfilled'),
+        handleFulfilled
+      );
   },
 });
 

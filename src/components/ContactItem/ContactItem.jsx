@@ -4,6 +4,8 @@ import Box from '@mui/material/Box';
 import { Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Edit } from '@mui/icons-material';
+import { useDispatch } from 'react-redux';
+import { openModal } from 'store/modal/modalSlice';
 
 function Item(props) {
   const { sx, ...other } = props;
@@ -41,7 +43,13 @@ Item.propTypes = {
   ]),
 };
 
-export const ContactItem = ({ name, number, onClickDelete, id }) => {
+export const ContactItem = ({ name, number, onClickDelete, id, el }) => {
+  const dispatch = useDispatch();
+
+  const isOpenModal = body => {
+    dispatch(openModal(body));
+  };
+
   return (
     <div style={{ width: '100%' }}>
       <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
@@ -64,7 +72,12 @@ export const ContactItem = ({ name, number, onClickDelete, id }) => {
             height: '35px',
           }}
         >
-          <Button variant="text" type="button" startIcon={<Edit />}>
+          <Button
+            variant="text"
+            type="button"
+            startIcon={<Edit />}
+            onClick={() => isOpenModal(el)}
+          >
             Edit
           </Button>
         </Item>

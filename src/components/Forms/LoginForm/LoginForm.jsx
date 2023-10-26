@@ -24,6 +24,7 @@ export const LoginForm = ({ disp }) => {
       password: data.get('password'),
     };
     disp(body);
+    event.target.reset();
   };
 
   return (

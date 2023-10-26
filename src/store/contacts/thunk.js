@@ -1,5 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { createContact, deleteContact, getAllContacts } from './helpersAPI';
+import {
+  createContact,
+  deleteContact,
+  editContact,
+  getAllContacts,
+} from './helpersAPI';
 
 export const getAllThunk = createAsyncThunk('contacts/getAll', async () => {
   const data = await getAllContacts();
@@ -19,5 +24,13 @@ export const deleteContactThunk = createAsyncThunk(
   async id => {
     await deleteContact(id);
     return id;
+  }
+);
+
+export const editContactThunk = createAsyncThunk(
+  'contacts/edit',
+  async (id, body) => {
+    const { data } = await editContact(id, body);
+    return data;
   }
 );

@@ -8,6 +8,7 @@ import {
   contactsSelector,
 } from 'store/contacts/selectors';
 import { Box } from '@mui/material';
+import BasicModal from 'components/Modal/Modal';
 
 export const ContactList = () => {
   const contacts = useSelector(contactsSelector);
@@ -32,19 +33,14 @@ export const ContactList = () => {
 
   useEffect(() => {
     dispatch(getAllThunk());
-    console.log('mount');
   }, [dispatch]);
 
   const createdListItems = array => {
     return array.map(el => {
       return (
-        <Box
-          key={el.id}
-          component="li"
-          fullWidth
-          sx={{ display: 'flex', width: '100%' }}
-        >
+        <Box key={el.id} component="li" sx={{ display: 'flex', width: '100%' }}>
           <ContactItem
+            el={el}
             name={el.name}
             number={el.number}
             onClickDelete={handleDelete}
@@ -56,10 +52,13 @@ export const ContactList = () => {
   };
 
   return (
-    <ul className={css.list}>
-      {filteredContacts
-        ? createdListItems(filteredContacts)
-        : createdListItems(contacts.items)}
-    </ul>
+    <>
+      <ul className={css.list}>
+        {filteredContacts
+          ? createdListItems(filteredContacts)
+          : createdListItems(contacts.items)}
+      </ul>
+      <BasicModal />
+    </>
   );
 };
