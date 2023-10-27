@@ -3,6 +3,7 @@ import { loginThunk, refreshThunk, registrationThunk } from './thunk';
 import Notiflix from 'notiflix';
 
 const initialState = {
+  isLogin: false,
   token: '',
   profile: null,
 };
@@ -10,18 +11,22 @@ const initialState = {
 const handleAuthFulfilled = (state, { payload }) => {
   state.token = payload.token;
   state.profile = payload.user;
+  state.isLogin = true;
 };
 
-const handleAuthRejected = () => {
+const handleAuthRejected = state => {
+  state.isLogin = false;
   Notiflix.Notify.failure('Incorrect login or password');
 };
 
 const handleAuthRefreshFulfilled = (state, { payload }) => {
+  state.isLogin = true;
   state.profile = payload;
 };
 
-const handleAuthRefreshRejected = () => {
-  Notiflix.Notify.failure('Failed refresh authorization');
+const handleAuthRefreshRejected = (state, error) => {
+  state.isLogin = false;
+  console.log(error);
 };
 
 const authSlice = createSlice({
