@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/88.3c108d04.chunk.css","mappings":"AAAA,yBAIE,YAAa,CACb,6BAA8B,CAJ9B,QAAS,CAET,eAAgB,CADhB,SAIF","sources":["components/ContactList/ContactList.module.css"],"sourcesContent":[".list {\n  gap: 10px;\n  padding: 0;\n  list-style: none;\n  display: flex;\n  flex-direction: column-reverse;\n}\n"],"names":[],"sourceRoot":""}
