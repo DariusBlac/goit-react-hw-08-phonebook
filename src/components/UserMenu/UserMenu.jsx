@@ -13,21 +13,23 @@ export const UserMenu = () => {
   const user = useSelector(profileSelector);
 
   return (
-    <Box sx={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
-      <Typography variant="subtitle1" component="h2">
-        Welcome {user.name}
-      </Typography>
+    user && (
+      <Box sx={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
+        <Typography variant="subtitle1" component="h2">
+          Welcome {user.name}
+        </Typography>
 
-      <Button
-        color="inherit"
-        onClick={() => {
-          dispatch(logOut());
-          deleteToken();
-          navigate('login');
-        }}
-      >
-        Logout
-      </Button>
-    </Box>
+        <Button
+          color="inherit"
+          onClick={() => {
+            dispatch(logOut());
+            deleteToken();
+            navigate('login');
+          }}
+        >
+          Logout
+        </Button>
+      </Box>
+    )
   );
 };

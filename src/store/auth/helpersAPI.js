@@ -24,3 +24,8 @@ export const signIn = async body => {
   setToken(data.token);
   return data;
 };
+
+export const refreshCurrentUser = async token => {
+  const { data } = await instance('users/current');
+  return data;
+};

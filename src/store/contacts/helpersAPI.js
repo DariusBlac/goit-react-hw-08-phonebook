@@ -13,6 +13,9 @@ export const deleteContact = async id => {
   await instance.delete(`/contacts/${id}`);
 };
 
-export const editContact = async (id, body) => {
-  await instance.patch(`/contacts/${id}`, body);
+export const editContact = async body => {
+  await instance.patch(`/contacts/${body.id}`, {
+    name: body.name,
+    number: body.number,
+  });
 };

@@ -7,9 +7,21 @@ import { Contacts } from 'pages/Contacts/Contacts';
 import { Home } from 'pages/Home/Home';
 import SignIn from 'pages/Login/Login';
 import SignUp from 'pages/Register/Register';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
+import { authSelector } from 'store/auth/selectors';
+import { refreshThunk } from 'store/auth/thunk';
 
 export const App = () => {
+  const dispatch = useDispatch();
+  const token = useSelector(authSelector);
+
+  useEffect(() => {
+    if (!token) return;
+    dispatch(refreshThunk());
+  }, [dispatch, token]);
+
   return (
     <>
       <Loader />

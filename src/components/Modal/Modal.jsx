@@ -45,8 +45,9 @@ export default function BasicModal() {
     const body = {
       name: data.get('name'),
       number: data.get('number'),
+      id: element.id,
     };
-    handleEdit(element.id, body);
+    handleEdit(body);
     handleClose();
   };
 

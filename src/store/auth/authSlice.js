@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loginThunk, registrationThunk } from './thunk';
+import { loginThunk, refreshThunk, registrationThunk } from './thunk';
 import Notiflix from 'notiflix';
 
 const initialState = {
@@ -16,6 +16,15 @@ const handleAuthRejected = () => {
   Notiflix.Notify.failure('Incorrect login or password');
 };
 
+const handleAuthRefreshFulfilled = (state, { payload }) => {
+  console.log(payload);
+  state.profile = payload;
+};
+
+const handleAuthRefreshRejected = () => {
+  Notiflix.Notify.failure('Failed refresh authorization');
+};
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -30,7 +39,9 @@ const authSlice = createSlice({
       .addCase(registrationThunk.fulfilled, handleAuthFulfilled)
       .addCase(loginThunk.fulfilled, handleAuthFulfilled)
       .addCase(loginThunk.rejected, handleAuthRejected)
-      .addCase(registrationThunk.rejected, handleAuthRejected);
+      .addCase(registrationThunk.rejected, handleAuthRejected)
+      .addCase(refreshThunk.fulfilled, handleAuthRefreshFulfilled)
+      .addCase(refreshThunk.rejected, handleAuthRefreshRejected);
   },
 });
 

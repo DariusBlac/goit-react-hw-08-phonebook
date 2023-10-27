@@ -29,8 +29,7 @@ export const deleteContactThunk = createAsyncThunk(
 
 export const editContactThunk = createAsyncThunk(
   'contacts/edit',
-  async (id, body) => {
-    const { data } = await editContact(id, body);
-    return data;
+  async body => {
+    await editContact(body);
   }
 );
