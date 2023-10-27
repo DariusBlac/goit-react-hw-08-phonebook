@@ -5,10 +5,3 @@
   display: flex;
   flex-direction: column-reverse;
 }
-
-.list_item {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}

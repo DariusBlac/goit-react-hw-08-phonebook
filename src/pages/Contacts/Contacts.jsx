@@ -6,7 +6,7 @@ import { contactsErrorSelector } from 'store/contacts/selectors';
 import { Box, Typography } from '@mui/material';
 import Notiflix from 'notiflix';
 
-export const Contacts = () => {
+const Contacts = () => {
   const error = useSelector(contactsErrorSelector);
 
   return (
@@ -27,3 +27,5 @@ export const Contacts = () => {
     </Box>
   );
 };
+
+export default Contacts;

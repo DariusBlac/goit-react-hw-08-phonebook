@@ -3,15 +3,17 @@ import Navigation from 'components/Navigation/Navigation';
 import { NotFound } from 'components/NotFound/NotFound';
 import PrivateRoute from 'guards/PrivateRoute/PrivateRoute';
 import PublicRoute from 'guards/PublicRoute/PublicRoute';
-import { Contacts } from 'pages/Contacts/Contacts';
 import { Home } from 'pages/Home/Home';
-import SignIn from 'pages/Login/Login';
-import SignUp from 'pages/Register/Register';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { authSelector } from 'store/auth/selectors';
 import { refreshThunk } from 'store/auth/thunk';
+import { lazy } from 'react';
+
+const SignIn = lazy(() => import('../../pages/Login/Login'));
+const SignUp = lazy(() => import('../../pages/Register/Register'));
+const Contacts = lazy(() => import('../../pages/Contacts/Contacts'));
 
 export const App = () => {
   const dispatch = useDispatch();
