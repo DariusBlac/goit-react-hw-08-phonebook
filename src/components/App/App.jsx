@@ -10,6 +10,7 @@ import { Route, Routes } from 'react-router-dom';
 import { authSelector } from 'store/auth/selectors';
 import { refreshThunk } from 'store/auth/thunk';
 import { lazy } from 'react';
+import { getAllThunk } from 'store/contacts/thunk';
 
 const SignIn = lazy(() => import('../../pages/Login/Login'));
 const SignUp = lazy(() => import('../../pages/Register/Register'));
@@ -22,6 +23,7 @@ export const App = () => {
   useEffect(() => {
     if (!token) return;
     dispatch(refreshThunk());
+    dispatch(getAllThunk());
   }, [dispatch, token]);
 
   return (

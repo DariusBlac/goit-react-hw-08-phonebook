@@ -17,7 +17,6 @@ const handleAuthRejected = () => {
 };
 
 const handleAuthRefreshFulfilled = (state, { payload }) => {
-  console.log(payload);
   state.profile = payload;
 };
 

@@ -2,7 +2,6 @@ import { ContactItem } from 'components/ContactItem/ContactItem';
 import css from './ContactList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContactThunk, getAllThunk } from 'store/contacts/thunk';
-import { useEffect } from 'react';
 import {
   contactsFilterSelector,
   contactsSelector,
@@ -30,10 +29,6 @@ export const ContactList = () => {
   filteredContacts = contacts.items.filter(el =>
     el.name.toLowerCase().includes(filter.toLowerCase())
   );
-
-  useEffect(() => {
-    dispatch(getAllThunk());
-  }, [dispatch]);
 
   const createdListItems = array => {
     return array.map(el => {
